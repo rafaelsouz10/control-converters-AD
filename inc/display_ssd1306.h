@@ -10,7 +10,10 @@
 #define I2C_SCL 15
 #define endereco 0x3C
 
-ssd1306_t ssd; // Inicializa a estrutura do display
+int stage_retangulo = -1;  //controla a exibicao do retangulo 0: Retângulo grande, 1: Retângulo menor, 2: Retângulo ainda menor
+bool cor = true;    // Define a cor do display (preto/branco)
+int x_pos, y_pos;  //variáveis para os valores do joystick para as coordenadas do display (128x64 pixels)
+ssd1306_t ssd;    // Inicializa a estrutura do display
 
 void displayInit(){
     // I2C Initialisation. Using it at 400Khz.
@@ -28,6 +31,18 @@ void displayInit(){
     // Limpa o display. O display inicia com todos os pixels apagados.
     ssd1306_fill(&ssd, false);
     ssd1306_send_data(&ssd);
+}
+
+void print_display(){
+    ssd1306_fill(&ssd, !cor); //Limpa o display
+    
+    // Desenha o retângulo com base no estágio
+    if (stage_retangulo == 0) ssd1306_rect(&ssd, 0, 0, 128, 64, cor, !cor); // Retângulo grande
+    else if (stage_retangulo == 1) ssd1306_rect(&ssd, 10, 10, 108, 54, cor, !cor); // Retângulo menor
+    else if (stage_retangulo == 2) ssd1306_rect(&ssd, 20, 20, 88, 44, cor, !cor); // Retângulo ainda menor
+    
+    ssd1306_rect(&ssd, y_pos,  x_pos, 8, 8, cor, cor);    // Desenha o quadrado no display na posição calculada
+    ssd1306_send_data(&ssd); // Atualiza o display
 }
 
 #endif
