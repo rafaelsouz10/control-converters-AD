@@ -1,7 +1,8 @@
 #include <stdio.h>            
 #include "pico/stdlib.h"      
 #include "hardware/adc.h"     
-#include "hardware/pwm.h"     
+#include "hardware/pwm.h"
+#include <inc/display_ssd1306.h>   
 
 #define VRX_PIN_RED 26
 #define VRX_PIN_BLUE 27
@@ -23,11 +24,10 @@ uint pwm_init_gpio(uint gpio, uint wrap) {
     return slice_num;  
 }
 
-int main() {
-    
+int main() {   
     stdio_init_all();
-
     adc_init(); 
+    displayInit(); //Inicializa as configurações do display
 
     adc_gpio_init(VRX_PIN_RED);
     adc_gpio_init(VRX_PIN_BLUE);
