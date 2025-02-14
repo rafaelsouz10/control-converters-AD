@@ -48,6 +48,7 @@ void pwm_gpio_init(){
 
 void control_joystick_leds(){
 
+    //botão A ativa ou desativa os leds pwm
     if (estado_pwm_leds) {
         // Controle do brilho dos LEDs baseado nos valores do joystick
         if(vrx_value <= ADC_CENTER) pwm_set_gpio_level(LED_PIN_RED, 0);  // Desliga o LED vermelho se abaixo do centro
@@ -62,11 +63,11 @@ void control_joystick_leds(){
     
 
     if (sw_value) {
-        led_state = !led_state; // Alterna o estado do LED verde
+        led_state = !led_state; // Alterna o estado do LED verde com o botão do joystick
         gpio_put(LED_PIN_GREEN, led_state);
 
         // Altera o estágio do retângulo
-        stage_retangulo = (stage_retangulo + 1) % 4;  // Cicla entre os três estágios (0, 1, 2, 3)
+        stage_retangulo = (stage_retangulo + 1) % 4;  // Cicla entre os estágios (0, 1, 2, 3)
         sleep_ms(200);  // Debounce do botão para evitar múltiplos cliques
     }
 }
