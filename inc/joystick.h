@@ -16,6 +16,9 @@
 
 #define ADC_CENTER 2150 //os valores da posição central ficou variando entre 2048 e 20140 em x
 
+bool led_state = false;
+bool sw_value;
+
 // Função para inicializar um pino GPIO para saída PWM
 uint pwm_init_gpio(uint gpio, uint wrap) {
     gpio_set_function(gpio, GPIO_FUNC_PWM);  // Configura o pino como saída PWM
@@ -43,5 +46,22 @@ void pwm_gpio_init(){
     uint pwm_slice_blue = pwm_init_gpio(LED_PIN_BLUE, pwm_wrap); // Inicializa o PWM para o LED azul
 }
 
+void control_joystick_leds(){
+    // Controle do brilho dos LEDs baseado nos valores do joystick
+    if(vrx_value <= ADC_CENTER) pwm_set_gpio_level(LED_PIN_RED, 0);  // Desliga o LED vermelho se abaixo do centro
+    else pwm_set_gpio_level(LED_PIN_RED, vrx_value);                // Ajusta PWM do LED vermelho
+    
+    if (vry_value <= ADC_CENTER) pwm_set_gpio_level(LED_PIN_BLUE, 0);   // Desliga o LED azul se abaixo do centro
+    else pwm_set_gpio_level(LED_PIN_BLUE, vry_value);                  // Ajusta PWM do LED azul
+
+    if (sw_value) {
+        led_state = !led_state; // Alterna o estado do LED verde
+        gpio_put(LED_PIN_GREEN, led_state);
+
+        // Altera o estágio do retângulo
+        stage_retangulo = (stage_retangulo + 1) % 4;  // Cicla entre os três estágios (0, 1, 2, 3)
+        sleep_ms(200);  // Debounce do botão para evitar múltiplos cliques
+    }
+}
 
 #endif

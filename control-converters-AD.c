@@ -4,7 +4,6 @@
 #include <inc/joystick.h>
 
 uint32_t last_print_time = 0; // Variável para controle de tempo do printf
-bool led_state = false;
 
 int main() {
     stdio_init_all();       // Inicializa entrada e saída padrão
@@ -21,34 +20,18 @@ int main() {
     while (true) {
         // Lê o valor do eixo X do joystick (pino ADC 1)
         adc_select_input(1);  
-        uint16_t vrx_value = adc_read();
+        vrx_value = adc_read();
         // Lê o valor do eixo Y do joystick (pino ADC 0)
         adc_select_input(0);  
-        uint16_t vry_value = adc_read();
-        bool sw_value = gpio_get(SW_PIN) == 0; 
+        vry_value = adc_read();
+        // Lê o estado do botão do joystick (true ou false)
+        sw_value = gpio_get(SW_PIN) == 0; 
 
-        // Controle do brilho dos LEDs baseado nos valores do joystick
-        if(vrx_value <= ADC_CENTER) pwm_set_gpio_level(LED_PIN_RED, 0);  // Desliga o LED vermelho se abaixo do centro
-        else pwm_set_gpio_level(LED_PIN_RED, vrx_value);                // Ajusta PWM do LED vermelho
-        
-        if (vry_value <= ADC_CENTER) pwm_set_gpio_level(LED_PIN_BLUE, 0);   // Desliga o LED azul se abaixo do centro
-        else pwm_set_gpio_level(LED_PIN_BLUE, vry_value);                  // Ajusta PWM do LED azul
-
-        if (sw_value) {
-            led_state = !led_state; // Alterna o estado do LED verde
-            gpio_put(LED_PIN_GREEN, led_state);
-
-            // Altera o estágio do retângulo
-            stage_retangulo = (stage_retangulo + 1) % 3;  // Cicla entre os três estágios (0, 1, 2)
-            sleep_ms(200);  // Debounce do botão para evitar múltiplos cliques
-        }
-
-        // Mapeia os valores do joystick para as coordenadas do display (128x64 pixels)
-        x_pos = (vrx_value * (128 - 8)) / 4095;              // Ajusta X para a largura do display (0 a 120)
-        y_pos = (64 - 8) - (vry_value * (64 - 8)) / 4095;   // Ajusta Y para a altura do display (0 a 56), invertendo para corresponder ao display
+        //Função responsável por configuração do joystick controlar os leds
+        control_joystick_leds();
 
         //Função responsável pelas informações do display
-        print_display(); 
+        print_display();
         
         // Exibe valores no console a cada 1s
         uint32_t current_time = to_ms_since_boot(get_absolute_time());  
