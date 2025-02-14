@@ -1,5 +1,6 @@
 #include <stdio.h>            
 #include "pico/stdlib.h"
+#include <inc/config_btn.h>
 #include <inc/display_ssd1306.h>
 #include <inc/joystick.h>
 
@@ -16,6 +17,11 @@ int main() {
     gpio_set_dir(LED_PIN_GREEN, GPIO_OUT);
 
     pwm_gpio_init(); //configuração inicial dos pin pwm
+
+
+    setup_gpio_BTN_A();//Configuração inicial do botão A
+    // Configuração da interrupção com callback para botão B
+    gpio_set_irq_enabled_with_callback(BTN_A, GPIO_IRQ_EDGE_FALL, true, &gpio_irq_handler);
 
     while (true) {
         // Lê o valor do eixo X do joystick (pino ADC 1)
