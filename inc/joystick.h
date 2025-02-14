@@ -14,7 +14,7 @@
 #define LED_PIN_BLUE 12
 #define LED_PIN_GREEN 11
 
-#define ADC_CENTER 2150 //os valores da posição central ficou variando entre 2048 e 20140 em x
+#define ADC_CENTER 2160 //os valores da posição central ficou variando entre 2048 e 20140 em x
 
 bool led_state = false;
 bool sw_value;
