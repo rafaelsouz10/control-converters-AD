@@ -116,7 +116,8 @@ Abaixo está o mapeamento de conexões entre os componentes e a Raspberry Pi Pic
 - Controle do movimento via **joystick analógico**.
 - Atualização da tela utilizando a biblioteca **ssd1306**.
 - Movimentação do **eixo y** do Joystick do centro para cima muda intensidade do led azul.
-- Movimentação do **eixo x** do Joystick do centro para direita muda a intensidade do led vermelho
+- Movimentação do **eixo x** do Joystick do centro para direita muda a intensidade do led vermelho.
+- **Botão do joystick** alterna o estado do led verde.
 - O **botão A** ativa/desativa os leds pwm.
 
 --- 
