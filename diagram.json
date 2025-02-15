@@ -17,34 +17,50 @@
       "left": -123.7,
       "attrs": { "common": "cathode" }
     },
-    {
-      "type": "wokwi-analog-joystick",
-      "id": "joystick1",
-      "top": -135,
-      "left": 101.4,
-      "attrs": {}
-    },
+    { "type": "wokwi-analog-joystick", "id": "joystick1", "top": -135, "left": 91.8, "attrs": {} },
     {
       "type": "wokwi-resistor",
       "id": "r1",
       "top": 99.95,
       "left": -67.2,
       "attrs": { "value": "220" }
+    },
+    {
+      "type": "board-ssd1306",
+      "id": "oled1",
+      "top": 127.94,
+      "left": 86.63,
+      "attrs": { "i2cAddress": "0x3c" }
+    },
+    { "type": "wokwi-vcc", "id": "vcc1", "top": 67.96, "left": 124.8, "attrs": {} },
+    {
+      "type": "wokwi-pushbutton",
+      "id": "btn1",
+      "top": -76.9,
+      "left": -121.3,
+      "rotate": 90,
+      "attrs": { "color": "green", "bounce": "0" }
     }
   ],
   "connections": [
     [ "pico:GP0", "$serialMonitor:RX", "", [] ],
     [ "pico:GP1", "$serialMonitor:TX", "", [] ],
     [ "pico:3V3", "joystick1:VCC", "magenta", [ "h29.11", "v19.2", "h38.4" ] ],
-    [ "joystick1:GND", "pico:GND.5", "black", [ "v0" ] ],
+    [ "joystick1:GND", "pico:GND.5", "black", [ "v76.8", "h-48", "v47.96" ] ],
     [ "joystick1:SEL", "pico:GP22", "gray", [ "v0" ] ],
-    [ "joystick1:HORZ", "pico:GP26", "gold", [ "v0" ] ],
-    [ "joystick1:VERT", "pico:GP27", "orange", [ "v0" ] ],
     [ "rgb1:G", "pico:GP11", "green", [ "v0" ] ],
     [ "pico:GP12", "rgb1:B", "blue", [ "h-86.4", "v-19.16" ] ],
     [ "pico:GP13", "rgb1:R", "red", [ "h0" ] ],
     [ "pico:GND.4", "r1:2", "black", [ "h0" ] ],
-    [ "rgb1:COM", "r1:1", "black", [ "v-0.1", "h0.1", "v28.5" ] ]
+    [ "rgb1:COM", "r1:1", "black", [ "v-0.1", "h0.1", "v28.5" ] ],
+    [ "oled1:VCC", "vcc1:VCC", "red", [ "v0" ] ],
+    [ "oled1:GND", "pico:GND.5", "black", [ "v-28.8", "h-48", "v-0.04" ] ],
+    [ "pico:GP15", "oled1:SCL", "green", [ "h80.35", "v0.04", "h130.55" ] ],
+    [ "pico:GP14", "oled1:SDA", "blue", [ "h89.95", "v0.04", "h130.78" ] ],
+    [ "joystick1:HORZ", "pico:GP27", "green", [ "v0" ] ],
+    [ "joystick1:VERT", "pico:GP26", "gold", [ "v0" ] ],
+    [ "pico:GP5", "btn1:1.r", "green", [ "h0" ] ],
+    [ "pico:GND.2", "btn1:2.r", "black", [ "h0" ] ]
   ],
   "dependencies": {}
 }

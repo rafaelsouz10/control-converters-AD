@@ -5,8 +5,8 @@
 #include "hardware/pwm.h"
 
 // Definição dos pinos dos potenciômetros do joystick
-#define VRX_PIN_RED 26   // Pino de entrada analógica para eixo X do joystick
-#define VRX_PIN_BLUE 27 // Pino de entrada analógica para eixo Y do joystick
+#define VRX_PIN_RED 27   // Pino de entrada analógica para eixo X do joystick
+#define VRY_PIN_BLUE 26 // Pino de entrada analógica para eixo Y do joystick
 #define SW_PIN 22      // Pino para o botão do joystick
 
 // Definição dos pinos dos LEDs PWM
@@ -33,7 +33,7 @@ uint pwm_init_gpio(uint gpio, uint wrap) {
 void set_init_joystick(){
     // Configura os pinos do joystick como entradas analógicas
     adc_gpio_init(VRX_PIN_RED);
-    adc_gpio_init(VRX_PIN_BLUE);
+    adc_gpio_init(VRY_PIN_BLUE);
     //Configura o botão do joystick como entrada
     gpio_init(SW_PIN);
     gpio_set_dir(SW_PIN, GPIO_IN);

@@ -61,8 +61,8 @@ void print_display(){
     }
 
     // Mapeia os valores do joystick para as coordenadas do display com a limitação do retângulo
-    x_pos = (vrx_value * (x_max - x_min)) / 4095 + x_min;
-    y_pos = y_max - (vry_value * (y_max - y_min)) / 4095;
+    x_pos = (vrx_value * (x_max - x_min)) / 4095 + x_min;   // Ajusta X para o display
+    y_pos = y_max - (vry_value * (y_max - y_min)) / 4095;  // Ajusta Y para o display invertendo para corresponder ao display
 
     // Desenha o quadrado 8x8 na posição calculada
     ssd1306_rect(&ssd, y_pos, x_pos, 8, 8, cor, cor);
