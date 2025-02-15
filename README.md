@@ -6,7 +6,8 @@
 
 Projeto da atividade **EmbarcaTech**, que visa implementar o controle de um quadrado móvel dentro de diferentes retângulos em um display OLED SSD1306, utilizando um joystick analógico para movimentação, alterando a intensidade do led via pwm com o joystick e utilizando o botão para ativar/desativar os leds pwm. O botão do joystick delimita o retângulo que visa a area de liberdade do quadrado.
 
-imagem irá aqui
+![image](https://github.com/user-attachments/assets/2b84b6d7-3261-45ee-b7d3-58058c3c51a5)
+
 
 ---
 
@@ -87,8 +88,8 @@ Abaixo está o mapeamento de conexões entre os componentes e a Raspberry Pi Pic
 |------------------------|---------------------------|
 | Display SSD1306 (SDA)  | GPIO 14                   |
 | Display SSD1306 (SCL)  | GPIO 15                   |
-| Joystick VRX           | GPIO 27 (ADC0)            |
-| Joystick VRY           | GPIO 26 (ADC1)            |
+| Joystick VRX           | GPIO 27                   |
+| Joystick VRY           | GPIO 26                   |
 | Botão A                | GPIO 5                    |
 | LED RGB Vermelho       | GPIO 13                   |
 | LED RGB Azul           | GPIO 12                   |
