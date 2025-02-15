@@ -64,6 +64,7 @@ void control_joystick_leds(){
 
     if (sw_value) {
         led_state = !led_state; // Alterna o estado do LED verde com o botão do joystick
+        if (estado_pwm_leds == false) led_state = false; //o botão A também irá ativar/destivar o led verde
         gpio_put(LED_PIN_GREEN, led_state);
 
         // Altera o estágio do retângulo
