@@ -30,7 +30,7 @@ uint pwm_init_gpio(uint gpio, uint wrap) {
     return slice_num;  
 }
 
-void set_init_joystick(){
+void joystick_init(){
     // Configura os pinos do joystick como entradas analógicas
     adc_gpio_init(VRX_PIN_RED);
     adc_gpio_init(VRY_PIN_BLUE);

@@ -7,17 +7,16 @@
 uint32_t last_print_time = 0; // Variável para controle de tempo do printf
 
 int main() {
-    stdio_init_all();       // Inicializa entrada e saída padrão
-    adc_init();            // Inicializa o ADC (conversor analógico-digital)
-    displayInit();        // Inicializa as configurações do display OLED SSD1306
-    set_init_joystick(); //Inicializa os pinos do joystick
+    stdio_init_all();   // Inicializa entrada e saída padrão
+    adc_init();        // Inicializa o ADC (conversor analógico-digital)
+    display_init();   // Inicializa as configurações do display OLED SSD1306
+    joystick_init(); //Inicializa os pinos do joystick
 
     //Configura o led verde como saída
     gpio_init(LED_PIN_GREEN);
     gpio_set_dir(LED_PIN_GREEN, GPIO_OUT);
 
     pwm_gpio_init(); //configuração inicial dos pin pwm
-
 
     setup_gpio_BTN_A();//Configuração inicial do botão A
     gpio_set_irq_enabled_with_callback(BTN_A, GPIO_IRQ_EDGE_FALL, true, &gpio_irq_handler);//Interrupção callback para botão A

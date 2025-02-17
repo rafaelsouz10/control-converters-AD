@@ -20,7 +20,7 @@ uint16_t vry_value;
 
 ssd1306_t ssd;    // Inicializa a estrutura do display
 
-void displayInit(){
+void display_init(){
     // I2C Initialisation. Using it at 400Khz.
     i2c_init(I2C_PORT, 400 * 1000);
 
