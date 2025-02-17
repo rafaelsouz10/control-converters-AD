@@ -20,8 +20,7 @@ int main() {
 
 
     setup_gpio_BTN_A();//Configuração inicial do botão A
-    // Configuração da interrupção com callback para botão B
-    gpio_set_irq_enabled_with_callback(BTN_A, GPIO_IRQ_EDGE_FALL, true, &gpio_irq_handler);
+    gpio_set_irq_enabled_with_callback(BTN_A, GPIO_IRQ_EDGE_FALL, true, &gpio_irq_handler);//Interrupção callback para botão A
 
     while (true) {
         // Lê o valor do eixo X do joystick (pino ADC 1)

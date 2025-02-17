@@ -27,9 +27,7 @@ void gpio_irq_handler(uint gpio, uint32_t events){
   // Verifica se passou tempo suficiente desde o último evento
   if (current_time - last_time > 200000) { // 200 ms de debouncing
     last_time = current_time; // Atualiza o tempo do último evento
-    
-      printf("Botão A pressionado! ");
-      estado_pwm_leds = !estado_pwm_leds;
+      estado_pwm_leds = !estado_pwm_leds; //Alterna o estado dos leds pwm quando o botão é clicado
   }
 }
 

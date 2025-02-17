@@ -41,35 +41,34 @@ void set_init_joystick(){
 }
 
 void pwm_gpio_init(){
-    uint pwm_wrap = 4095;  // Define o valor máximo do PWM (12 bits - 0 a 4095)
-    uint pwm_slice_red = pwm_init_gpio(LED_PIN_RED, pwm_wrap);   // Inicializa o PWM para o LED vermelho
-    uint pwm_slice_blue = pwm_init_gpio(LED_PIN_BLUE, pwm_wrap); // Inicializa o PWM para o LED azul
+    uint pwm_wrap = 4095;  //Define o valor máximo do PWM
+    uint pwm_slice_red = pwm_init_gpio(LED_PIN_RED, pwm_wrap);   //Inicializa o PWM para o LED vermelho
+    uint pwm_slice_blue = pwm_init_gpio(LED_PIN_BLUE, pwm_wrap); //Inicializa o PWM para o LED azul
 }
 
 void control_joystick_leds(){
 
     //botão A ativa ou desativa os leds pwm
     if (estado_pwm_leds) {
-        // Controle do brilho dos LEDs baseado nos valores do joystick
-        if(vrx_value <= ADC_CENTER) pwm_set_gpio_level(LED_PIN_RED, 0);  // Desliga o LED vermelho se abaixo do centro
-        else pwm_set_gpio_level(LED_PIN_RED, vrx_value);                // Ajusta PWM do LED vermelho
+        //Controle do brilho dos LEDs baseado nos valores do joystick
+        if(vrx_value <= ADC_CENTER) pwm_set_gpio_level(LED_PIN_RED, 0);  //Desliga o LED vermelho se abaixo do centro
+        else pwm_set_gpio_level(LED_PIN_RED, vrx_value);                //Ajusta PWM do LED vermelho
         
-        if (vry_value <= ADC_CENTER) pwm_set_gpio_level(LED_PIN_BLUE, 0);   // Desliga o LED azul se abaixo do centro
-        else pwm_set_gpio_level(LED_PIN_BLUE, vry_value);                  // Ajusta PWM do LED azul
+        if (vry_value <= ADC_CENTER) pwm_set_gpio_level(LED_PIN_BLUE, 0);   //Desliga o LED azul se abaixo do centro
+        else pwm_set_gpio_level(LED_PIN_BLUE, vry_value);                  //Ajusta PWM do LED azul
     } else {
-        pwm_set_gpio_level(LED_PIN_RED, 0);  // Desliga o LED vermelho se abaixo do centro
-        pwm_set_gpio_level(LED_PIN_BLUE, 0);  // Desliga o LED vermelho se abaixo do centro
+        pwm_set_gpio_level(LED_PIN_RED, 0);  //Desliga o LED vermelho se abaixo do centro
+        pwm_set_gpio_level(LED_PIN_BLUE, 0);  //Desliga o LED vermelho se abaixo do centro
     }
     
-
     if (sw_value) {
-        led_state = !led_state; // Alterna o estado do LED verde com o botão do joystick
-        if (estado_pwm_leds == false) led_state = false; //o botão A também irá ativar/destivar o led verde
+        led_state = !led_state; //Alterna o estado do LED verde com o botão do joystick
+        if (estado_pwm_leds == false) led_state = false; //O botão A também irá ativar/destivar o led verde
         gpio_put(LED_PIN_GREEN, led_state);
 
         // Altera o estágio do retângulo
-        stage_retangulo = (stage_retangulo + 1) % 4;  // Cicla entre os estágios (0, 1, 2, 3)
-        sleep_ms(200);  // Debounce do botão para evitar múltiplos cliques
+        stage_retangulo = (stage_retangulo + 1) % 4;  //Cicla entre os estágios do retângulo (0, 1, 2, 3)
+        sleep_ms(200);  //Debounce do botão para evitar múltiplos cliques
     }
 }
 
